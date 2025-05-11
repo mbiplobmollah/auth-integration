@@ -2,7 +2,6 @@ import React, { use } from 'react';
 import { Link, NavLink } from 'react-router';
 import './Navbar.css'
 import { AuthContext } from '../../contexts/AuthContext';
-import { signOut } from 'firebase/auth';
 
 const Navbar = () => {
 
@@ -26,6 +25,13 @@ const Navbar = () => {
     <li><NavLink to={'/'}>Home</NavLink> </li>
     <li><NavLink to={'/login'}>Login</NavLink> </li>
     <li><NavLink to={'/register'}>Register</NavLink> </li>
+    <li><NavLink to={'/dashboard'}>Dashboard</NavLink> </li>
+
+
+    {user &&  <>
+    <li><NavLink to={'/orders'}>Orders</NavLink> </li>
+    <li><NavLink to={'/profile'}>Profile</NavLink> </li>
+    </>}
     </div>
 
     return (
@@ -53,7 +59,11 @@ const Navbar = () => {
     </ul>
   </div>
   <div className="navbar-end">
-    {user ? <a onClick={handleSignOut} className="btn">Sign Out</a> :<Link to={'/login'}>Login</Link>}
+    {user ? <>
+    <span className='mr-4'>{user.email}</span>
+    <a onClick={handleSignOut} className="btn">Sign Out</a>
+
+    </> :<Link to={'/login'}> <button className='btn'>Login</button> </Link>}
   </div>
 </div>
     );
